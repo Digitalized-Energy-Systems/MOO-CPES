@@ -1,0 +1,7 @@
+evoalgos==1.1
+git+https://gitlab.com/mango-agents/mango-library.git@Improvements-for-MO-COHDA
+h5py==3.7.0
+matplotlib==3.6.2
+numpy==1.21.3
+pandas==1.5.2
+pytest==6.2.5
