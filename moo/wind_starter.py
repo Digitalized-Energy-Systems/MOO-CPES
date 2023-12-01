@@ -7,11 +7,11 @@ import h5py
 import numpy as np
 import pandas as pd
 import psutil
-
-from config import ROOT_PATH, DB_FILE, TARGET, NUM_SOLUTION_POINTS, PORTS_TO_AIDS
 from mango import RoleAgent
 from mango import create_container
 from mango.messages.codecs import JSON
+
+from config import ROOT_PATH, DB_FILE, TARGET, NUM_SOLUTION_POINTS, PORTS_TO_AIDS
 from mango_library.coalition.core import (
     CoalitionParticipantRole,
     CoalitionInitiatorRole,
@@ -293,5 +293,3 @@ def main(iteration):
     p = psutil.Process(pid)
     p.terminate()
     p.kill()
-
-# asyncio.run(energy_scenario())
