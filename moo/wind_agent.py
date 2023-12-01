@@ -1,11 +1,11 @@
 import asyncio
 
 import pandas as pd
-
-from config import ROOT_PATH, TARGET, NUM_SOLUTION_POINTS, WIND_CONFIG, PORTS_TO_AIDS
 from mango import RoleAgent
 from mango import create_container
 from mango.messages.codecs import JSON
+
+from config import ROOT_PATH, TARGET, NUM_SOLUTION_POINTS, WIND_CONFIG, PORTS_TO_AIDS
 from mango_library.coalition.core import (
     CoalitionParticipantRole,
 )
@@ -117,17 +117,7 @@ async def run_agent(pos):
     while True:
         await asyncio.sleep(1000)
         print(a.aid, c.msgs)
-    await c.shutdown()
 
 
 def main(pos):
     asyncio.run(run_agent(pos))
-
-# parser = argparse.ArgumentParser()
-# args = parser.parse_known_args()
-# position = args[1][-1]
-# if len(position) == 6:
-#     position = position[-1]
-# else:
-#     position = position[-2:]
-# asyncio.run(run_agent(pos=int(position)))
