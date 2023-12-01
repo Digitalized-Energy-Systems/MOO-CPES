@@ -1,13 +1,13 @@
 import asyncio
 import time
-import random
+from datetime import datetime
 
 import h5py
 import numpy as np
 import pandas as pd
-
 from mango import RoleAgent
 from mango import create_container
+
 from mango_library.coalition.core import (
     CoalitionParticipantRole,
     CoalitionInitiatorRole,
@@ -35,9 +35,8 @@ from mango_library.negotiation.termination import (
     NegotiationTerminationDetectorRole,
 )
 from moo.config import ROOT_PATH, NUM_CHPS, NUM_WIND, DB_FILE, TARGET, NUM_SIMULATIONS, WIND_CONFIG, \
-    NUM_SOLUTION_POINTS, SCHEDULE_LENGTH
+    NUM_SOLUTION_POINTS
 from moo.targets import TARGETS
-from datetime import datetime
 
 DATA_PATH = ROOT_PATH.parent / 'data'
 
@@ -55,7 +54,7 @@ MUTATE_FKT_CHP = MoCohdaNegotiation.mutate_with_one_random_schedule
 # MUTATE_FKT_CHP = MoCohdaNegotiation.mutate_with_all_possible
 
 # global parameter
-CHECK_MSG_QUEUE_INTERVAL = 0.0000000001
+CHECK_MSG_QUEUE_INTERVAL = 0.05
 
 
 async def energy_scenario():
@@ -158,10 +157,10 @@ async def energy_scenario():
                 num_solution_points=NUM_SOLUTION_POINTS,
                 num_iterations=NUM_ITERATIONS_WIND,
                 check_inbox_interval=CHECK_MSG_QUEUE_INTERVAL,
-                # check_inbox_interval=random.uniform(0.01, 0.08),
                 pick_func=PICK_FKT_WIND,
                 mutate_func=MUTATE_FKT_WIND,
-                target_params=target_params
+                target_params=target_params,
+                improve_inter_agent_variation=True
             )
             a.add_role(cohda_role)
             a.add_role(CoalitionParticipantRole())
@@ -184,10 +183,10 @@ async def energy_scenario():
                 num_solution_points=NUM_SOLUTION_POINTS,
                 num_iterations=NUM_ITERATIONS_CHP,
                 check_inbox_interval=CHECK_MSG_QUEUE_INTERVAL,
-                # check_inbox_interval=random.uniform(0.01, 0.08),
                 pick_func=PICK_FKT_CHP,
                 mutate_func=MUTATE_FKT_CHP,
-                target_params=target_params
+                target_params=target_params,
+                improve_inter_agent_variation=True
             )
 
             a.add_role(cohda_role)
